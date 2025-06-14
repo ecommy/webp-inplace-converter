@@ -3,7 +3,7 @@
  * Plugin Name: WebP Inplace Converter
  * Plugin URI: https://ecommy.com/webp-inplace-converter
  * Description: Converts and serves images in WebP format
- * Version: 1.0.5
+ * Version: 1.0.6
  * Author: ecommy - your ecommerce experts
  * Author URI: https://ecommy.com
  * Text Domain: webp-inplace-converter
@@ -17,7 +17,7 @@ if (!defined('WPINC')) {
 }
 
 // Define plugin constants
-define('WEBP_INPLACE_CONVERTER_VERSION', '1.0.5');
+define('WEBP_INPLACE_CONVERTER_VERSION', '1.0.6');
 define('WEBP_INPLACE_CONVERTER_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('WEBP_INPLACE_CONVERTER_PLUGIN_URL', plugin_dir_url(__FILE__));
 
