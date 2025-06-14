@@ -211,20 +211,17 @@ class WebP_Image_Processor {
             return;
         }
 
-        $files = array_diff(scandir($dir), ['.', '..']);
-
-        foreach ($files as $file) {
-            $path = $dir . '/' . $file;
-
-            if (is_dir($path)) {
-                $this->recursive_delete_directory($path);
-            } else {
-                @unlink($path);
-            }
+        // Initialize WP_Filesystem
+        global $wp_filesystem;
+        if (empty($wp_filesystem)) {
+            require_once(ABSPATH . '/wp-admin/includes/file.php');
+            WP_Filesystem();
         }
 
-        @rmdir($dir);
+        // Use WP_Filesystem to delete the directory recursively
+        $wp_filesystem->rmdir($dir, true);
     }
+
 
     /**
      * Check if browser supports WebP
@@ -232,19 +229,15 @@ class WebP_Image_Processor {
      * @return bool Whether WebP is supported
      */
     public function browser_supports_webp() {
-        // Force enable for debug
-        if (isset($_GET['webp_debug'])) {
-            return true;
-        }
-
         // Check Accept header
-        if (isset($_SERVER['HTTP_ACCEPT']) && strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false) {
+        $http_accept = isset($_SERVER['HTTP_ACCEPT']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_ACCEPT'])) : '';
+        if (!empty($http_accept) && strpos($http_accept, 'image/webp') !== false) {
             return true;
         }
 
         // Check User-Agent for Chrome, Edge, Firefox, etc.
         if (isset($_SERVER['HTTP_USER_AGENT'])) {
-            $ua = $_SERVER['HTTP_USER_AGENT'];
+            $ua = sanitize_textarea_field(wp_unslash($_SERVER['HTTP_USER_AGENT']));
 
             // Chrome 9+, Opera 12+
             if (preg_match('/Chrome\/([0-9]+)/', $ua, $matches) && (int)$matches[1] >= 9) {
@@ -276,10 +269,9 @@ class WebP_Image_Processor {
      * Log debug info
      */
     public function log_debug_info() {
-        if (!empty($this->debug_messages)) {
-            error_log('WebP Converter Debug: ' . count($this->debug_messages) . ' conversions');
+        if (!empty($this->debug_messages) && (defined('WP_DEBUG') && WP_DEBUG)) {
             foreach ($this->debug_messages as $message) {
-                error_log('WebP Converter: ' . $message);
+                wp_debug_log('WebP Converter: ' . $message);
             }
         }
     }

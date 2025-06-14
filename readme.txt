@@ -2,8 +2,8 @@
 Contributors: ecommy
 Tags: webp, images, performance, optimization, converter
 Requires at least: 5.0
-Tested up to: 6.8.1
-Stable tag: 1.0.5
+Tested up to: 6.8
+Stable tag: 1.0.6
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -88,6 +88,8 @@ No, your original images remain untouched. The plugin creates WebP copies in a s
 
 
 == Changelog ==
+= 1.0.6 =
+* corrections after automatic Plugin Check
 
 = 1.0.5 =
 * Fixed version number discrepancy

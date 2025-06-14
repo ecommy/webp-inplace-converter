@@ -94,35 +94,42 @@ class WebP_Inplace_Converter_Admin {
 
             <div class="webp-cards-container">
                 <div class="card">
-                    <h2><?php _e('WebP Inplace Converter Settings', 'webp-inplace-converter'); ?></h2>
-                    <p><?php _e('WebP Inplace Converter automatically converts your images to WebP format when they are displayed to browsers that support it.', 'webp-inplace-converter'); ?></p>
+                    <h2><?php esc_html_e('WebP Inplace Converter Settings', 'webp-inplace-converter'); ?></h2>
+                    <p><?php esc_html_e('WebP Inplace Converter automatically converts your images to WebP format when they are displayed to browsers that support it.', 'webp-inplace-converter'); ?></p>
 
-                    <h3><?php _e('Statistics', 'webp-inplace-converter'); ?></h3>
+                    <h3><?php esc_html_e('Statistics', 'webp-inplace-converter'); ?></h3>
                     <p>
-                        <?php _e('Total WebP images:', 'webp-inplace-converter'); ?> <strong><?php echo number_format($webp_count); ?></strong><br>
-                        <?php _e('WebP images size:', 'webp-inplace-converter'); ?> <strong><?php echo $this->format_size($webp_size); ?></strong>
+                        <?php esc_html_e('Total WebP images:', 'webp-inplace-converter'); ?> <strong><?php echo number_format($webp_count); ?></strong><br>
+                        <?php esc_html_e('WebP images size:', 'webp-inplace-converter'); ?> <strong><?php echo esc_html($this->format_size($webp_size)); ?></strong>
                     </p>
 
-                    <h3><?php _e('Actions', 'webp-inplace-converter'); ?></h3>
+                    <h3><?php esc_html_e('Actions', 'webp-inplace-converter'); ?></h3>
                     <p>
-                        <a href="<?php echo admin_url('options-general.php?page=' . $this->plugin_name . '&webp_regenerate=1'); ?>" class="button button-primary">
-                            <?php _e('Regenerate All WebP Images', 'webp-inplace-converter'); ?>
+                        <?php
+                        $regenerate_url = add_query_arg(array(
+                            'page' => $this->plugin_name,
+                            'webp_regenerate' => '1',
+                            '_wpnonce' => wp_create_nonce('webp_regenerate_action')
+                        ), admin_url('options-general.php'));
+                        ?>
+                        <a href="<?php echo esc_url($regenerate_url); ?>" class="button button-primary">
+                            <?php esc_html_e('Regenerate All WebP Images', 'webp-inplace-converter'); ?>
                         </a>
-                        <span class="description"><?php _e('This will delete all existing WebP images and regenerate them when they are requested.', 'webp-inplace-converter'); ?></span>
+                        <span class="description"><?php esc_html_e('This will delete all existing WebP images and regenerate them when they are requested.', 'webp-inplace-converter'); ?></span>
                     </p>
                 </div>
 
                 <div class="card">
-                    <h2><?php _e('Browser Support', 'webp-inplace-converter'); ?></h2>
-                    <p><?php _e('WebP is supported by most modern browsers:', 'webp-inplace-converter'); ?></p>
+                    <h2><?php esc_html_e('Browser Support', 'webp-inplace-converter'); ?></h2>
+                    <p><?php esc_html_e('WebP is supported by most modern browsers:', 'webp-inplace-converter'); ?></p>
                     <ul>
-                        <li><?php _e('Chrome (version 9+)', 'webp-inplace-converter'); ?></li>
-                        <li><?php _e('Firefox (version 65+)', 'webp-inplace-converter'); ?></li>
-                        <li><?php _e('Edge (version 18+)', 'webp-inplace-converter'); ?></li>
-                        <li><?php _e('Opera (version 12+)', 'webp-inplace-converter'); ?></li>
-                        <li><?php _e('Safari (version 14+)', 'webp-inplace-converter'); ?></li>
+                        <li><?php esc_html_e('Chrome (version 9+)', 'webp-inplace-converter'); ?></li>
+                        <li><?php esc_html_e('Firefox (version 65+)', 'webp-inplace-converter'); ?></li>
+                        <li><?php esc_html_e('Edge (version 18+)', 'webp-inplace-converter'); ?></li>
+                        <li><?php esc_html_e('Opera (version 12+)', 'webp-inplace-converter'); ?></li>
+                        <li><?php esc_html_e('Safari (version 14+)', 'webp-inplace-converter'); ?></li>
                     </ul>
-                    <p><?php _e('For browsers that do not support WebP, the original image format will be used.', 'webp-inplace-converter'); ?></p>
+                    <p><?php esc_html_e('For browsers that do not support WebP, the original image format will be used.', 'webp-inplace-converter'); ?></p>
                 </div>
 
             </div>

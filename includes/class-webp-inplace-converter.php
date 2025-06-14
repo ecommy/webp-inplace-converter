@@ -78,8 +78,7 @@ class WebP_Inplace_Converter {
      * Handle admin actions including regeneration
      */
     public function handle_admin_actions() {
-        if (current_user_can('manage_options') && isset($_GET['webp_regenerate']) && $_GET['webp_regenerate'] === '1') {
-            $this->regenerate_all_webp_images();
+        if (current_user_can('manage_options') && isset($_GET['webp_regenerate']) && $_GET['webp_regenerate'] === '1' && isset($_GET['_wpnonce']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_GET['_wpnonce'])), 'webp_regenerate_action')) {
             add_action('admin_notices', function() {
                 echo '<div class="notice notice-success"><p>All WebP images have been cleared.</p></div>';
             });
